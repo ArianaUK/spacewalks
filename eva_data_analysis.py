@@ -2,6 +2,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 
+def read_json_to_dataframe(in_file):
+    print(f'Reading JSON file {in_file}')
+    eva_df = pd.read_json(in_file, convert_dates=['date'])
+    eva_df.dropna(axis=0, inplace=True)
+    eva_df.sort_values('date', inplace=True)
+    return eva_df
+
+
 
 if __name__ == '__main__':
 
@@ -17,12 +25,7 @@ if __name__ == '__main__':
     graph_file = './cumulative_eva_graph.png'
 
     print(f'Reading JSON file {input_file}')
-    data = pd.read_json(input_file, convert_dates=['date'])
-    data['eva'] = data['eva'].astype(float)
-    # remove data entry with missing values
-    data.dropna(axis=0, inplace=True)
-    # sort data by the date column
-    data.sort_values('date', inplace=True)
+    data = read_json_to_dataframe(input_file)
 
     print(f'Saving to CSV file {output_file}')
     data.to_csv(output_file, index=False)
@@ -37,3 +40,6 @@ if __name__ == '__main__':
     plt.savefig(graph_file)
     plt.show()
     print("--END--")
+
+
+   
