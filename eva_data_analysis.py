@@ -3,6 +3,17 @@ import matplotlib.pyplot as plt
 import sys
 
 def read_json_to_dataframe(in_file):
+    """
+    Read the data from a JSON file into a Pandas dataframe.
+    Clean the data by removing any incomplete rows and sort by date
+
+    Args:
+        input_file_ (str): The path to the JSON file.
+
+    Returns:
+         eva_df (pd.DataFrame): The loaded dataframe.
+    """
+
     print(f'Reading JSON file {in_file}')
     eva_df = pd.read_json(in_file, convert_dates=['date'])
     eva_df.dropna(axis=0, inplace=True)
