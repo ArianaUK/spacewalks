@@ -1,13 +1,12 @@
-#https://data.nasa.gov/resource/eva.json
+# https://data.nasa.gov/resource/eva.json
+data_f = open('/home/sarah/Projects/ssi-ukrn-fair-course/data.json', 'r')
+data_t = open('/home/sarah/Projects/ssi-ukrn-fair-course/data.csv','w')
+g_file = 'myplot.png'
 
-data_f = open('/home/sarah/Projects/ssi-ukrn-fair-course/eva-data.json', 'r')
 fieldnames = ("EVA #", "Country", "Crew    ", "Vehicle", "Date", "Duration", "Purpose")
 
 data=[]
 import json
-
-data_t = open('/home/sarah/Projects/ssi-ukrn-fair-course/data.csv', 'w')
-dt = []
 
 for i in range(374):
     line=data_f.readline()
@@ -23,9 +22,6 @@ import datetime as dt
 
 time = []
 date =[]
-
-
-
 
 j=0
 for i in data:
@@ -55,8 +51,11 @@ for i in time:
 
 date,time = zip(*sorted(zip(date, time)))
 
-import matplotlib.pyplot as myplot
+import matplotlib.pyplot as plt
 
-myplot.plot(date,t[1:],'-')
-myplot.plot(date,t[1:],'ko')
-myplot.show()
+plt.plot(date,t[1:], 'ko-')
+plt.xlabel('Year')
+plt.ylabel('Total time spent in space to date (hours)')
+plt.tight_layout()
+plt.savefig(g_file)
+plt.show()
